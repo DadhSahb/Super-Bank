@@ -1,0 +1,100 @@
+Question Solve the missing parts ???
+
+1. Add missing images in the front page
+***pixabay.com and find the picture for peanuts, deodorant
+
+2. Make "Super Bank" to take to index.html on all pages.
+***only for the manage it is not going to work to go back to super bank.
+
+3. Let all the pages to have the same link on the top.
+***for the home, manage, shop ,features/bugs. for every link need to work to geather
+
+4. Year at the bottom of the pages is hardcoded. Let's make it to autoupdate on all years.
+
+***change the year from 2021 to 2023. 
+
+5. Highlight the backcolor of row on manage list for those having discount. Use color #B9FAA8.
+*** for the Peanuts discount put the #B9FAA8 color. do this on CSS .some{ pick the color.
+
+6. On individual product update page, the title says "Update Product". Please change that to say "Update NAME of PRODUCT" So, the car update page says "Updating Car"
+*** on "Update Product" for CAR.
+
+
+7. Quantity dropdown on product listing is not implemented, implement it.
+***for table cover, fix it the drop down
+
+8. Everytime the user is clicking on add to cart, the page is taken(moving)up. Most probably this is due to the link. Maybe change it to corresponding button.
+
+*** for two raw of product why it is moving up and how to fix it when we order the product
+
+
+
+9. When the cart on the top right is clicked, cart.html shall be shown
+
+*** cart.html when you oder check out
+
+
+10. When the member tries to use cart.html without order, redirect to customer.html on all pages. Also logged member's name is displayed on index.html, make it on all.
+
+
+11. Show total amount for the checkout.
+***after you solve no 7. add one more 
+script.js --- for price let products={ add one more row, construct 
+manage.js
+HINT:- You need to have one more row at the bottom that will show the grand total of the products purchased by the customer.
+
+
+12. When checkout button is clicked, check the member has sufficient fund.
+***???? one more array script.js let array
+
+
+13. On success create new storage that holds, product id, member email, amount and date. Then store this in the storage called orders.
+
+
+
+14. Allow the member to add quantity or to delete the order from the checkout page.
+
+
+15. Once the checkout is done, amount has to be deducted from members deposit.
+
+
+
+16. Create a new page called popular, and list all the products that have rating 4 and above. This will be shown when the shop -> popular items is clicked.
+****under the shop->popular work on script.js
+
+
+
+
+17. Validate appropriately and show right message or throw error. In member registration and in checkout.
+*** when we checked out make sure you do have the correct message or error. 
+we did not add succesfully added the customer.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
