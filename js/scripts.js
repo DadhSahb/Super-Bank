@@ -147,23 +147,11 @@ document.addEventListener(
         document.querySelector(".cart-counter").innerHTML = cart.length;
         console.log(cart);
         localStorage.setItem("cart", JSON.stringify(cart));
-
-        // // calculate total amount and price
-        // let totalPrice = 0;
-
-        // cart.forEach((item) => {
-        //   totalPrice += item.product.price * item.quantity;
-        // });
-
-        // // show total amount and price
-        // document.getElementById("#total-price").innerHTML = totalPrice;
-        // console.log(totalPrice);
       }
     }
   },
   false
 );
-
 function containsClass(element, className) {
   return element.className.split(" ").indexOf(className) > -1;
 }

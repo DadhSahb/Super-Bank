@@ -117,7 +117,7 @@
           </table>
         </div>
         <div class="text-center">
-          <button class="btn btn-success">Checkout</button>
+          <button id="checkoutBtn" class="btn btn-success">Checkout</button>
         </div>
       </div>
     </section>
@@ -139,20 +139,6 @@
         let cart = JSON.parse(localStorage.getItem("cart"));
         console.log(cart);
         let cart_content = "";
-        function calculateTotalPrice() {
-          let totalPrice = 0;
-          for (let i = 0; i < cart.length; i++) {
-            totalPrice += cart[i].product.totalPrice * cart[i].quantity;
-          }
-          return totalPrice;
-        }
-        function displayTotalPrice() {
-          const totalPriceElement = document.getElementById("total-price");
-          const totalPrice = calculateTotalPrice();
-          totalPriceElement.innerText = totalPrice;
-        }
-
-        displayTotalPrice();
         cart.forEach((item) => {
           //more icons at https://icons.getbootstrap.com/
           cart_content += `<tr>
@@ -161,7 +147,41 @@
                             <td><button class="btn btn-danger delete-cart-item" data-product-id="${item.product.id}">Delete</button></td>
                             </tr>`;
         });
+
+        //Q11 Total price
+        let totalPrice = 0;
+        for (let i = 0; i < cart.length; i++) {
+          const product = cart[i].product;
+          const quantity = cart[i].quantity;
+          const price = product.productPrice;
+          totalPrice += price * quantity;
+        }
+
+        document.getElementById(
+          "total-price"
+        ).innerHTML = `$${totalPrice.toFixed(2)}`;
+
         document.querySelector("tbody").innerHTML = cart_content;
+
+        //Q12: Checking Sufficient fund
+        const checkoutBtn = document.querySelector("#checkoutBtn");
+        checkoutBtn.addEventListener("click", () => {
+          let members = JSON.parse(localStorage.getItem("logged_members"));
+          console.log(totalPrice);
+          DepositCheck();
+          function DepositCheck() {
+            let logged_member = JSON.parse(
+              localStorage.getItem("logged_member")
+            );
+            if (logged_member) {
+              let deposit = logged_member.deposit;
+              console.log(deposit);
+              if (deposit < totalPrice) {
+                alert("Insuffcient balance");
+              } else alert("Success");
+            }
+          }
+        });
       } else {
         //the member is not logged in redirect to registration
         window.location.replace("/customer.html");
