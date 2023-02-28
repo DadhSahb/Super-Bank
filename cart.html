@@ -38,7 +38,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#!">Home</a>
+              <a class="nav-link active" aria-current="page" href="index.html"
+                >Home</a
+              >
             </li>
             <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
             <li class="nav-item dropdown">
@@ -62,11 +64,18 @@
             </li>
           </ul>
           <form class="d-flex">
-            <button class="btn btn-outline-dark" type="submit">
-              <i class="bi-cart-fill me-1"></i>
-              Cart
-              <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-            </button>
+            <div id="logged_member"></div>
+            <!-- Q9: show cart -->
+            <a href="cart.html">
+              <button class="btn btn-outline-dark" type="button">
+                <i class="bi-cart-fill me-1"></i>
+                Cart
+                <span
+                  class="cart-counter badge bg-dark text-white ms-1 rounded-pill"
+                  >0</span
+                >
+              </button>
+            </a>
           </form>
         </div>
       </div>
@@ -98,6 +107,13 @@
               </tr>
             </thead>
             <tbody></tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2">Total:</td>
+                <td id="total-price"></td>
+                <td></td>
+              </tr>
+            </tfoot>
           </table>
         </div>
         <div class="text-center">
@@ -123,21 +139,43 @@
         let cart = JSON.parse(localStorage.getItem("cart"));
         console.log(cart);
         let cart_content = "";
+        function calculateTotalPrice() {
+          let totalPrice = 0;
+          for (let i = 0; i < cart.length; i++) {
+            totalPrice += cart[i].product.totalPrice * cart[i].quantity;
+          }
+          return totalPrice;
+        }
+        function displayTotalPrice() {
+          const totalPriceElement = document.getElementById("total-price");
+          const totalPrice = calculateTotalPrice();
+          totalPriceElement.innerText = totalPrice;
+        }
+
+        displayTotalPrice();
         cart.forEach((item) => {
           //more icons at https://icons.getbootstrap.com/
           cart_content += `<tr>
                             <td>${item.product.productTitle}</td>
                             <td><input type="text" value='${item.quantity}' /></td>
-                            <td><a href='#'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-</svg></a></td>
+                            <td><button class="btn btn-danger delete-cart-item" data-product-id="${item.product.id}">Delete</button></td>
                             </tr>`;
         });
         document.querySelector("tbody").innerHTML = cart_content;
       } else {
         //the member is not logged in redirect to registration
         window.location.replace("/customer.html");
+      }
+    </script>
+    <!-- Q:10 Showing name on all pages -->
+    <script>
+      welcomeLoggedUser();
+      function welcomeLoggedUser() {
+        let logged_member = JSON.parse(localStorage.getItem("logged_member"));
+        if (logged_member) {
+          document.getElementById("logged_member").innerHTML = `Welcome
+  ${logged_member.name} `;
+        }
       }
     </script>
   </body>

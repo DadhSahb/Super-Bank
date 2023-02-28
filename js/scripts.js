@@ -73,53 +73,64 @@ const loadProducts = () => {
   let product_cards = "";
   products.forEach((product) => {
     product_cards += `<div class="col mb-5">
-<div class="card h-100">
-<!-- Sale badge-->
-<div class="badge bg-dark text-white position-absolute" style="top:
-0.5rem; right: 0.5rem">${product.prevPrice ? "Sale" : ""}</div>
-<!-- Product image-->
-<img class="card-img-top" src="${product.image}" alt="..." />
-<!-- Product details-->
-<div class="card-body p-4">
-<div class="text-center">
-<!-- Product name-->
-<h5 class="fw-bolder">${product.title}</h5>`;
+      <div class="card h-100">
+        <!-- Sale badge-->
+        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">${
+          product.prevPrice ? "Sale" : ""
+        }</div>
+        <!-- Product image-->
+        <img class="card-img-top" src="${product.image}" alt="..." />
+        <!-- Product details-->
+        <div class="card-body p-4">
+          <div class="text-center">
+            <!-- Product name-->
+            <h5 class="fw-bolder">${product.title}</h5>`;
     if (product.getRating() > 0) {
       product_cards += `<!-- Product reviews-->
-<div class="d-flex justify-content-center small text-warning mb-2">`;
+            <div class="d-flex justify-content-center small text-warning mb-2">`;
       product_cards += [...Array(product.getRating()).keys()].reduce(
         (acc, index) => acc + `<div class="bi-star-fill"></div>`,
-        `<div
-class="bi-star-fill"></div>`
+        `<div class="bi-star-fill"></div>`
       );
       product_cards += `</div>`;
     }
     product_cards += `<!-- Product price-->
-<span class="text-muted text-decoration-line-through">
-${product.prevPrice ? product.prevPrice : ""}
-</span>
-${product.price}
-<div>
-Quantity: <select>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-</select>
-</div>
-</div>
-</div>
-<!-- Product actions-->
-<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-<div class="text-center"><a id="${"cart_" + product.id}" class="add-cart
-btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-</div>
-</div>
-</div>`;
+            <span class="text-muted text-decoration-line-through">${
+              product.prevPrice ? product.prevPrice : ""
+            }</span>
+            ${product.price}
+            <div>
+              Quantity: <select id="quantity_${product.id}">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- Product actions-->
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+          <div class="text-center"><a id="${
+            "cart_" + product.id
+          }" class="add-cart btn btn-outline-dark mt-auto">Add to cart</a></div>
+        </div>
+      </div>
+    </div>`;
   });
   document.getElementById("content_holder").innerHTML = product_cards;
+
+  // Q7: Add event listener to each quantity dropdown
+  products.forEach((product) => {
+    const quantityDropdown = document.getElementById(`quantity_${product.id}`);
+    quantityDropdown.addEventListener("change", (event) => {
+      const quantity = parseInt(event.target.value);
+      product.quantity = quantity;
+    });
+  });
 };
+
 loadProducts();
 //add to cart handler
 document.addEventListener(
@@ -130,15 +141,29 @@ document.addEventListener(
       let id = event.target.id.split("_")[1];
       let product = getProductById(id);
       if (product) {
-        cart.push({ product: product, quantity: 1 });
+        const quantityDropdown = document.getElementById(`quantity_${id}`);
+        const quantity = parseInt(quantityDropdown.value);
+        cart.push({ product: product, quantity: quantity });
         document.querySelector(".cart-counter").innerHTML = cart.length;
         console.log(cart);
         localStorage.setItem("cart", JSON.stringify(cart));
+
+        // // calculate total amount and price
+        // let totalPrice = 0;
+
+        // cart.forEach((item) => {
+        //   totalPrice += item.product.price * item.quantity;
+        // });
+
+        // // show total amount and price
+        // document.getElementById("#total-price").innerHTML = totalPrice;
+        // console.log(totalPrice);
       }
     }
   },
   false
 );
+
 function containsClass(element, className) {
   return element.className.split(" ").indexOf(className) > -1;
 }

@@ -62,11 +62,18 @@
             </li>
           </ul>
           <form class="d-flex">
-            <button class="btn btn-outline-dark" type="submit">
-              <i class="bi-cart-fill me-1"></i>
-              Cart
-              <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-            </button>
+            <div id="logged_member"></div>
+            <!-- Q9: show cart -->
+            <a href="cart.html">
+              <button class="btn btn-outline-dark" type="button">
+                <i class="bi-cart-fill me-1"></i>
+                Cart
+                <span
+                  class="cart-counter badge bg-dark text-white ms-1 rounded-pill"
+                  >0</span
+                >
+              </button>
+            </a>
           </form>
         </div>
       </div>
@@ -75,7 +82,8 @@
     <header class="bg-dark py-5">
       <div class="container px-4 px-lg-5">
         <div class="text-center text-white">
-          <h1 class="display-4 fw-bolder">Update Products</h1>
+          <!-- Q6: adding name of products to be updated -->
+          <h1 class="page-title display-4 fw-bolder">Update NAME of PRODUCT</h1>
           <p class="lead fw-normal text-white-50 mb-0">
             With this shop hompeage template
           </p>
@@ -119,7 +127,6 @@
           </div>
         </div>
         <div class="text-center">
-          <h1 class="page-title">Update NAME of PRODUCT</h1>
           <button class="btn-update btn btn-success" type="button">
             Update
           </button>
@@ -159,13 +166,24 @@
           document.getElementById("rating").value = product.rating
             ? product.rating
             : "Not Rated Yet";
-          // update page title
+          // Q6: adding name of products to be updated
           document.querySelector(".page-title").textContent =
             "Updating " + product.productTitle;
         }
         console.log(product);
       };
       populateProduct(getProductIdForUpdate());
+    </script>
+    <!-- Q:10 Showing name on all pages -->
+    <script>
+      welcomeLoggedUser();
+      function welcomeLoggedUser() {
+        let logged_member = JSON.parse(localStorage.getItem("logged_member"));
+        if (logged_member) {
+          document.getElementById("logged_member").innerHTML = `Welcome
+  ${logged_member.name} `;
+        }
+      }
     </script>
   </body>
 </html>

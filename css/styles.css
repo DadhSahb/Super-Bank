@@ -67,10 +67,10 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
-/* .some{
-  background-color: #B9FAA8;
-} */
+/* Q5: adding CSS */
+.some {
+  background-color: #b9faa8;
+}
 
 hr {
   margin: 1rem 0;
