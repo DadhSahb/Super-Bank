@@ -58,7 +58,9 @@
                   <a class="dropdown-item" href="index.html">All Products</a>
                 </li>
                 <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                <li>
+                  <a class="dropdown-item" href="popular.html">Popular Items</a>
+                </li>
                 <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
               </ul>
             </li>
@@ -148,7 +150,7 @@
                       </tr>`;
         });
 
-        //Q11 Total price
+        //Q11 Total price of products
         let totalPrice = 0;
         for (let i = 0; i < cart.length; i++) {
           const product = cart[i].product;
@@ -208,7 +210,7 @@
                   JSON.stringify(logged_member)
                 );
 
-                // create new order
+                // Q13 create new order
                 const order = {
                   productId: cart[0].product.productId, // assuming only one product in cart
                   memberEmail: logged_member.email,
@@ -230,6 +232,7 @@
         });
       } else {
         //the member is not logged in redirect to registration
+        // Q10: if customer not logged in then redriect to register
         window.location.replace("/customer.html");
       }
     </script>

@@ -51,7 +51,7 @@ peanut.setRating(2);
 let cart = [];
 //products database.
 let products = [
-  //adding assests adress for images
+  //Q1 adding assests adress for images
   new Product(1, "Car", 25000, "/assets/products/car.png"),
   new Product(2, "Stroller", 250, "/assets/products/stroller.jpg"),
   new Product(3, "Table Cover", 2.9, "/assets/products/table_cover.jpg"),
@@ -71,6 +71,11 @@ localStorage.setItem("products", JSON.stringify(products));
 //load products when the page is loading.
 const loadProducts = () => {
   let product_cards = "";
+
+  //Q16 Filtering Products to rating
+  const filteredProducts = products.filter(
+    (product) => product.getRating() >= 4
+  );
   products.forEach((product) => {
     product_cards += `<div class="col mb-5">
       <div class="card h-100">
